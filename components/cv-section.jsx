@@ -42,7 +42,7 @@ export default function CVSection() {
                       d="M4 5a2 2 0 012-2 1 1 0 000 2 1 1 0 100 2H3a1 1 0 000 2h1a1 1 0 000 2H4a2 2 0 01-2-2V5zm16 0a2 2 0 00-2-2 1 1 0 000 2 1 1 0 110 2h1a1 1 0 100-2h-1a1 1 0 000-2h-4a2 2 0 00-2 2v10a2 2 0 002 2h4a2 2 0 002-2V5z"
                     />
                   </svg>
-                  Professional Resume
+                  My Resume
                 </h3>
                 <p className="text-gray-300">
                   Download my CV to see my detailed work experience, education, skills, and achievements.
@@ -82,11 +82,24 @@ export default function CVSection() {
                     </button>
                   </div>
                   <div className="p-6">
-                    <p className="text-gray-400 text-center mb-4">
-                      PDF Preview will display here once you upload your resume.pdf file to the public folder.
-                    </p>
-                    {/* If you want to embed PDF, you can use: */}
-                    {/* <embed src="/resume.pdf" type="application/pdf" width="100%" height="600" /> */}
+                    {/* Option 1: Using an Iframe (Most reliable for modern browsers) */}
+                    <iframe 
+                      src="/resume.pdf" 
+                      className="w-full h-[600px] rounded-lg border border-white/10"
+                      title="Resume Preview"
+                    >
+                    </iframe>
+
+                    {/* Option 2: Fallback text for mobile devices that don't support embedding */}
+                    <div className="mt-4 text-center text-sm text-gray-500 sm:hidden">
+                      <p>
+                        PDF previews may not be available on all mobile devices. 
+                        <a href="/resume.pdf" download className="text-cyan-400 underline ml-1">
+                          Download the file
+                        </a> 
+                        to view it.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
