@@ -8,23 +8,15 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata = {
   title: 'Naveen Sharma - Full Stack Developer',
   description: 'Portfolio of Naveen Sharma, MERN Stack Developer. Full-stack developer crafting beautiful, high-performance web experiences.',
-  generator: 'v0.app',
+  generator: '',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/placeholder-user.png',
         media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      }
     ],
-    apple: '/apple-icon.png',
+    apple: '/placeholder-user.png',
   },
 }
 
