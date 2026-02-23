@@ -1,11 +1,25 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { getResume } from "@/app/admin/actions" // Adjust path if needed
 
 export default function CVSection() {
   const [showPDF, setShowPDF] = useState(false)
+  const [resumeUrl, setResumeUrl] = useState("/resume.pdf") // Default fallback
   const ref = useRef(null)
 
+  // Fetch live resume from MongoDB
+  useEffect(() => {
+    async function fetchResume() {
+      const dbResume = await getResume()
+      if (dbResume) {
+        setResumeUrl(dbResume)
+      }
+    }
+    fetchResume()
+  }, [])
+
+  // Animation observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -37,10 +51,7 @@ export default function CVSection() {
                 <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                   <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                    <path
-                      fillRule="evenodd"
-                      d="M4 5a2 2 0 012-2 1 1 0 000 2 1 1 0 100 2H3a1 1 0 000 2h1a1 1 0 000 2H4a2 2 0 01-2-2V5zm16 0a2 2 0 00-2-2 1 1 0 000 2 1 1 0 110 2h1a1 1 0 100-2h-1a1 1 0 000-2h-4a2 2 0 00-2 2v10a2 2 0 002 2h4a2 2 0 002-2V5z"
-                    />
+                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2 1 1 0 100 2H3a1 1 0 000 2h1a1 1 0 000 2H4a2 2 0 01-2-2V5zm16 0a2 2 0 00-2-2 1 1 0 000 2 1 1 0 110 2h1a1 1 0 100-2h-1a1 1 0 000-2h-4a2 2 0 00-2 2v10a2 2 0 002 2h4a2 2 0 002-2V5z" />
                   </svg>
                   My Resume
                 </h3>
@@ -50,8 +61,9 @@ export default function CVSection() {
               </div>
 
               <div className="flex gap-4 flex-col sm:flex-row">
+                {/* Updated to use the dynamic resumeUrl */}
                 <a
-                  href="/resume.pdf"
+                  href={resumeUrl}
                   download="Resume.pdf"
                   className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105 text-center"
                 >
@@ -82,19 +94,18 @@ export default function CVSection() {
                     </button>
                   </div>
                   <div className="p-6">
-                    {/* Option 1: Using an Iframe (Most reliable for modern browsers) */}
+                    {/* Updated to use the dynamic resumeUrl */}
                     <iframe 
-                      src="/resume.pdf" 
+                      src={resumeUrl} 
                       className="w-full h-[600px] rounded-lg border border-white/10"
                       title="Resume Preview"
                     >
                     </iframe>
 
-                    {/* Option 2: Fallback text for mobile devices that don't support embedding */}
                     <div className="mt-4 text-center text-sm text-gray-500 sm:hidden">
                       <p>
                         PDF previews may not be available on all mobile devices. 
-                        <a href="/resume.pdf" download className="text-cyan-400 underline ml-1">
+                        <a href={resumeUrl} download="Resume.pdf" className="text-cyan-400 underline ml-1">
                           Download the file
                         </a> 
                         to view it.
