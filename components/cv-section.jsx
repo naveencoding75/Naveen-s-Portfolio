@@ -82,10 +82,46 @@ export default function CVSection() {
             </div>
           </div>
 
-          {/* PDF Preview Modal remains the same */}
+          {/* PDF Preview Modal */}
           {showPDF && (
-            <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-               {/* ... Keep your existing modal code here ... */}
+            <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4 backdrop-blur-sm transition-all duration-300">
+              <div className="bg-gray-950 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-white/10 shadow-2xl flex flex-col">
+                
+                {/* Modal Header */}
+                <div className="sticky top-0 bg-gray-900/80 backdrop-blur-md p-4 border-b border-white/10 flex justify-between items-center z-10">
+                  <h3 className="text-lg font-semibold text-white">Resume Preview</h3>
+                  <button
+                    onClick={() => setShowPDF(false)}
+                    className="text-gray-400 hover:text-red-400 transition-colors bg-white/5 hover:bg-red-400/10 p-2 rounded-lg"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Modal Body with PDF Iframe */}
+                <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-gray-950/50">
+                  <iframe 
+                    src={resumeUrl} 
+                    className="w-full h-[65vh] sm:h-[75vh] rounded-xl border border-white/5 bg-white"
+                    title="Resume Preview"
+                  >
+                  </iframe>
+
+                  {/* Fallback for Mobile */}
+                  <div className="mt-4 text-center text-sm text-gray-500 sm:hidden">
+                    <p>
+                      PDF previews may not be available on all mobile devices. 
+                      <a href={resumeUrl} download="Naveen_Sharma_Resume.pdf" className="text-cyan-400 underline ml-1">
+                        Download the file
+                      </a> 
+                      to view it.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
             </div>
           )}
         </div>
