@@ -58,14 +58,6 @@ export default function Navigation() {
                 <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </a>
             ))}
-            
-            {/* Admin Link (Subtle) */}
-            <a 
-              href="/admin" 
-              className="px-4 py-2 text-sm font-medium text-cyan-400 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/10 transition-colors"
-            >
-              Admin
-            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -101,12 +93,6 @@ export default function Navigation() {
               {link.name}
             </a>
           ))}
-          <a 
-            href="/admin" 
-            className="w-full text-center py-2 text-cyan-400 font-medium border-t border-white/10 mt-2 pt-4"
-          >
-            Admin Dashboard
-          </a>
         </div>
       </div>
     </header>

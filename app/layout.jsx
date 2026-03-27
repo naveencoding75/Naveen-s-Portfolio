@@ -2,8 +2,9 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+// Initialize the fonts
+const geist = Geist({ subsets: ["latin"] });
+const geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata = {
   title: 'Naveen Sharma - Full Stack Developer',
@@ -30,8 +31,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      {/* Applied the Geist font class directly to the body */}
+      <body className={`${geist.className} antialiased bg-gray-950 text-white`}>
         {children}
         <Analytics />
       </body>

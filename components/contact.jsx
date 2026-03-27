@@ -81,7 +81,7 @@ export default function Contact() {
               <div className="group p-6 rounded-2xl bg-gray-900/50 border border-white/5 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] flex items-center gap-6">
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
@@ -121,6 +121,10 @@ export default function Contact() {
             {/* Right Column: The Form */}
             <div className="lg:col-span-3 bg-gray-900/40 p-8 md:p-10 rounded-3xl border border-white/5 backdrop-blur-md shadow-2xl">
               <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* FORMSPREE HONEYPOT - Hidden from humans, catches bots */}
+                <input type="text" name="_gotcha" style={{ display: "none" }} />
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-300 ml-1">Name</label>
