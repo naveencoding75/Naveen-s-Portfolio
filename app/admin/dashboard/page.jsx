@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { addProject, editProject, uploadResume, getProjects, deleteProject, logout, addSkill, getSkills, deleteSkill } from '../actions';
 
+import ProjectManager from "@/components/admin/ProjectManager"
+
 export default function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -229,37 +231,24 @@ export default function Dashboard() {
       </section>
 
       {/* 4. Manage Existing Projects */}
-      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">4. Manage Projects</h2>
-        <div className="flex flex-col gap-4">
-          {projects.length === 0 ? (
-            <p className="text-gray-400">No projects found in database.</p>
-          ) : (
-            projects.map((project) => (
-              <div key={project._id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-800 rounded-lg border border-gray-700 gap-4">
-                <div>
-                  <h3 className="font-bold text-white">{project.title}</h3>
-                  <p className="text-sm text-gray-400 line-clamp-1 w-full sm:w-64">{project.description}</p>
-                </div>
-                <div className="flex gap-2 w-full sm:w-auto">
-                  <button 
-                    onClick={() => handleEditClick(project)}
-                    className="flex-1 sm:flex-none bg-blue-500/20 text-blue-400 px-4 py-2 rounded hover:bg-blue-600 hover:text-white transition-colors"
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    onClick={() => handleDeleteProject(project._id)}
-                    className="flex-1 sm:flex-none bg-red-600/20 text-red-400 px-4 py-2 rounded hover:bg-red-600 hover:text-white transition-colors"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </section>
+      {/* 4. Manage Projects */}
+<section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+  <h2 className="text-xl font-semibold mb-6 text-cyan-400">4. Manage Projects (Drag to Reorder)</h2>
+
+  {projects.length === 0 ? (
+    <p className="text-gray-400">No projects found in database.</p>
+  ) : (
+    /* 
+       We pass handleEditClick and handleDeleteProject as props 
+       so the buttons inside ProjectManager still work! 
+    */
+    <ProjectManager 
+      initialProjects={projects} 
+      onEdit={handleEditClick} 
+      onDelete={handleDeleteProject} 
+    />
+  )}
+</section>
 
     </div>
   );

@@ -62,6 +62,25 @@ export async function addProject(formData) {
   });
 }
 
+export async function updateProjectOrder(orderedIds) {
+  try {
+    await connectDB();
+
+    // Mapping through IDs to create an array of update promises
+    const updates = orderedIds.map((id, index) => 
+      Project.findByIdAndUpdate(id, { order: index })
+    );
+
+    // Wait for all updates to finish
+    await Promise.all(updates);
+    
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update project order:", error);
+    return { success: false };
+  }
+}
+
 export async function editProject(formData) {
   await connectDB();
   const id = formData.get('id');
@@ -101,7 +120,8 @@ export async function editProject(formData) {
 
 export async function getProjects() {
   await connectDB();
-  const projects = await Project.find({}).lean();
+  const projects = await Project.find({}).sort({ order: 1 }).lean();
+  
   return projects.map(p => ({
     ...p,
     _id: p._id.toString()
