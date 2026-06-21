@@ -1,8 +1,19 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { addProject, editProject, uploadResume, getProjects, deleteProject, logout, addSkill, getSkills, deleteSkill } from '../actions';
+import { 
+  addProject, 
+  editProject, 
+  uploadResume, 
+  getProjects, 
+  deleteProject, 
+  logout, 
+  addSkill, 
+  getSkills, 
+  deleteSkill,
+  uploadProfilePhoto // Import the new action
+} from '../actions';
 
 import ProjectManager from "@/components/admin/ProjectManager"
 
@@ -37,11 +48,9 @@ export default function Dashboard() {
         await addProject(formData);
       }
       
-      // Fetch the updated list instantly without reloading the page
       const updatedProjects = await getProjects();
       setProjects(updatedProjects);
       
-      // Clear the form and reset edit state
       document.getElementById('project-form').reset();
       setEditingProject(null);
       toast.success(editingProject ? 'Project updated successfully!' : 'Project added successfully!', { id: toastId });
@@ -52,7 +61,7 @@ export default function Dashboard() {
 
   const handleEditClick = (project) => {
     setEditingProject(project);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll up to the form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const cancelEdit = () => {
@@ -68,6 +77,18 @@ export default function Dashboard() {
       toast.success('Resume updated successfully!', { id: toastId });
     } catch (error) {
       toast.error('Failed to upload resume.', { id: toastId });
+    }
+  };
+
+  // New handler function for profile image upload
+  const handleProfilePhotoSubmit = async (formData) => {
+    const toastId = toast.loading('Updating profile photo...');
+    try {
+      await uploadProfilePhoto(formData);
+      document.getElementById('profile-photo-form').reset();
+      toast.success('Profile photo updated successfully!', { id: toastId });
+    } catch (error) {
+      toast.error('Failed to update profile photo.', { id: toastId });
     }
   };
 
@@ -91,7 +112,6 @@ export default function Dashboard() {
     await deleteProject(formData);
     setProjects(projects.filter(project => project._id !== id));
     
-    // If we delete the project we are currently editing, cancel the edit
     if (editingProject?._id === id) {
       cancelEdit();
     }
@@ -142,14 +162,11 @@ export default function Dashboard() {
         </div>
 
         <form action={handleProjectSubmit} id="project-form" className="flex flex-col gap-6">
-          
-          {/* Global Details */}
           <div className="space-y-4">
             <input type="text" name="title" defaultValue={editingProject?.title || ''} placeholder="Project Title" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
             <input type="text" name="tags" defaultValue={editingProject?.tags?.join(', ') || ''} placeholder="Tags (comma separated, e.g., React, Node.js)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
           </div>
 
-          {/* Card View Details (Thumbnail & Short Desc) */}
           <div className="p-5 rounded-lg border border-cyan-500/20 bg-cyan-500/5 space-y-4">
             <h3 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Small Card View (Grid)</h3>
             <textarea name="shortDescription" defaultValue={editingProject?.shortDescription || ''} placeholder="Short Tagline / Summary (1-2 sentences)" className="w-full p-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors h-20 resize-none" required />
@@ -163,7 +180,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Expanded View Details (Full Image & Long Desc) */}
           <div className="p-5 rounded-lg border border-blue-500/20 bg-blue-500/5 space-y-4">
             <h3 className="text-sm font-bold text-blue-400 uppercase tracking-wider">Expanded View (Modal)</h3>
             <textarea name="description" defaultValue={editingProject?.description || ''} placeholder="Full Detailed Description..." className="w-full p-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-blue-400 transition-colors h-32 resize-none" required />
@@ -177,7 +193,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Links */}
           <div className="flex flex-col sm:flex-row gap-4">
             <input type="url" name="link" defaultValue={editingProject?.link || ''} placeholder="Live URL (Optional)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" />
             <input type="url" name="github" defaultValue={editingProject?.github || ''} placeholder="GitHub URL (Optional)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" />
@@ -189,9 +204,20 @@ export default function Dashboard() {
         </form>
       </section>
 
-      {/* 2. Upload Resume Form */}
+      {/* NEW SECTION. Upload Profile Photo Form */}
       <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">2. Upload Resume (PDF)</h2>
+        <h2 className="text-xl font-semibold mb-6 text-cyan-400">2. Update Display Avatar / Profile Photo</h2>
+        <form action={handleProfilePhotoSubmit} id="profile-photo-form" className="flex flex-col gap-4">
+          <input type="file" name="profileFile" accept="image/*" className="p-3 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20" required />
+          <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold p-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+            Upload Avatar
+          </button>
+        </form>
+      </section>
+
+      {/* 3. Upload Resume Form */}
+      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-cyan-400">3. Upload Resume (PDF)</h2>
         <form action={handleResumeSubmit} id="resume-form" className="flex flex-col gap-4">
           <input type="file" name="file" accept="application/pdf" className="p-3 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20" required />
           <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold p-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
@@ -200,9 +226,9 @@ export default function Dashboard() {
         </form>
       </section>
 
-      {/* 3. Add Skill Form */}
+      {/* 4. Add Skill Form */}
       <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">3. Manage Skills</h2>
+        <h2 className="text-xl font-semibold mb-6 text-cyan-400">4. Manage Skills</h2>
         <form action={handleSkillSubmit} id="skill-form" className="flex flex-col gap-4">
           <input type="text" name="name" placeholder="Skill Name (e.g., Node.js)" className="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
           <select name="category" className="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required>
@@ -216,7 +242,6 @@ export default function Dashboard() {
           </button>
         </form>
 
-        {/* List Skills */}
         <div className="mt-6 flex flex-wrap gap-3">
           {skills.map(skill => (
             <div key={skill._id} className="flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full text-sm">
@@ -230,26 +255,19 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* 4. Manage Existing Projects */}
-      {/* 4. Manage Projects */}
-<section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-  <h2 className="text-xl font-semibold mb-6 text-cyan-400">4. Manage Projects (Drag to Reorder)</h2>
-
-  {projects.length === 0 ? (
-    <p className="text-gray-400">No projects found in database.</p>
-  ) : (
-    /* 
-       We pass handleEditClick and handleDeleteProject as props 
-       so the buttons inside ProjectManager still work! 
-    */
-    <ProjectManager 
-      initialProjects={projects} 
-      onEdit={handleEditClick} 
-      onDelete={handleDeleteProject} 
-    />
-  )}
-</section>
-
+      {/* 5. Manage Projects */}
+      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-cyan-400">5. Manage Projects (Drag to Reorder)</h2>
+        {projects.length === 0 ? (
+          <p className="text-gray-400">No projects found in database.</p>
+        ) : (
+          <ProjectManager 
+            initialProjects={projects} 
+            onEdit={handleEditClick} 
+            onDelete={handleDeleteProject} 
+          />
+        )}
+      </section>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import connectDB from '@/lib/mongodb';
 import { Project, Resume, Skill } from '@/lib/models';
+import ProfilePhoto from "@/models/ProfilePhoto";
 
 // ==========================================
 // AUTHENTICATION
@@ -183,4 +184,38 @@ export async function deleteSkill(formData) {
   await connectDB();
   const id = formData.get('id');
   await Skill.findByIdAndDelete(id);
+}
+
+// Add these to app/admin/actions.js
+
+export async function uploadProfilePhoto(formData) {
+  try {
+    await connectDB();
+    const file = formData.get('profileFile');
+    if (!file || file.size === 0) throw new Error("No file uploaded");
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const base64Image = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+    // Updates the single existing photo document, or creates one if it's the first time
+    await ProfilePhoto.findOneAndUpdate(
+      {}, 
+      { url: base64Image }, 
+      { upsert: true, new: true }
+    );
+    return { success: true };
+  } catch (error) {
+    console.error("Profile upload error:", error);
+    throw new Error("Failed to upload profile photo");
+  }
+}
+
+export async function getProfilePhoto() {
+  try {
+    await connectDB();
+    const profile = await ProfilePhoto.findOne({}).lean();
+    return profile ? profile.url : "/my_photo.png"; 
+  } catch (error) {
+    return "/my_photo.png";
+  }
 }

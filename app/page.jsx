@@ -9,6 +9,7 @@ import Skills from "@/components/skills"
 import CVSection from "@/components/cv-section"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
+import { getProfilePhoto } from "@/app/admin/actions"
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })

@@ -1,100 +1,132 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { getProfilePhoto } from "@/app/admin/actions"
 
 export default function Hero() {
-  const [text, setText] = useState("")
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [loopNum, setLoopNum] = useState(0)
-  const [typingSpeed, setTypingSpeed] = useState(150)
-
-  const roles = [
-    "Full-Stack Developer",
-    "Data Engineer",
-    "B.Tech CS Student",
-    "Data Science Enthusiast"
-  ]
+  const [isCoderMode, setIsCoderMode] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    let ticker = setInterval(() => handleType(), typingSpeed)
-    return () => clearInterval(ticker)
-  }, [text, isDeleting, loopNum])
+    // Smooth transition into developer focus mode 1.5 seconds after landing
+    const timer = setTimeout(() => setIsCoderMode(true), 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
-  const handleType = () => {
-    const i = loopNum % roles.length
-    const fullText = roles[i]
-
-    setText(isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1))
-    setTypingSpeed(isDeleting ? 50 : 150)
-
-    if (!isDeleting && text === fullText) {
-      setTimeout(() => setIsDeleting(true), 1500)
-    } else if (isDeleting && text === "") {
-      setIsDeleting(false)
-      setLoopNum(loopNum + 1)
-      setTypingSpeed(100)
+  useEffect(() => {
+    async function fetchAvatar() {
+      try {
+        const activePhoto = await getProfilePhoto()
+        if (activePhoto) {
+          setAvatarUrl(activePhoto)
+        }
+      } catch (error) {
+        console.error("Failed to load hero avatar:", error)
+        setAvatarUrl("/my_photo.png") // Absolute emergency local fallback
+      } finally {
+        setIsLoading(false) // Turn off loading once database answers
+      }
     }
-  }
+    fetchAvatar()
+  }, [])
 
   return (
     <section 
-      id="home" 
-      className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 py-32 bg-no-repeat"
+      id="hero" 
+      className="min-h-screen pt-32 pb-20 px-4 relative z-10 overflow-hidden"
     >
-      {/* The Floating Glassmorphism Card */}
-      <div className="relative z-10 max-w-5xl w-full backdrop-blur-xl bg-white/5 border border-white/10 rounded-[2.5rem] p-8 sm:p-16 shadow-2xl flex flex-col items-center text-center">
+      {/* Cyan & Violet ambient refraction orbs */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
+
+      <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-12 gap-12 items-center min-h-[calc(100vh-8rem)]">
         
-        {/* Greeting Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 border border-white/10 mb-8">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-          </span>
-          <span className="text-cyan-300 text-sm font-medium tracking-wide uppercase">
-            Available for new opportunities
-          </span>
-        </div>
-
-        {/* Main Headline */}
-        <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
-          Hi, I'm <br className="hidden sm:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300">
-            Naveen
-          </span>
-        </h1>
-
-        {/* Typewriter Effect */}
-        <h2 className="text-2xl sm:text-4xl font-bold text-gray-300 h-[40px] sm:h-[50px] flex items-center justify-center mb-6">
-          I am a <span className="text-white ml-2">{text}</span>
-          <span className="animate-pulse text-cyan-400 ml-1">|</span>
-        </h2>
-
-        {/* Short Bio */}
-        <p className="max-w-2xl text-lg sm:text-xl text-gray-400 leading-relaxed mb-10">
-          Bridging the gap between robust software architecture and advanced analytics. I build scalable web applications and automated data pipelines that drive real-world impact.
-        </p>
-
-        {/* Interactive CTA Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          <a 
-            href="#projects" 
-            className="group relative px-8 py-4 bg-cyan-500/20 text-cyan-300 font-bold rounded-xl border border-cyan-500/50 hover:bg-cyan-500 hover:text-gray-900 transition-all duration-300"
+        {/* LEFT COLUMN: Typography & Actions */}
+        <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="relative flex items-center gap-2">
-              Explore My Work
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold uppercase tracking-widest text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 rounded-full">
+              Full-Stack Developer & Data Scientist
             </span>
-          </a>
+            
+            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-none mb-6">
+              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Naveen Sharma</span>
+            </h1>
 
-          <a 
-            href="#contact" 
-            className="px-8 py-4 bg-transparent text-white font-bold rounded-xl border border-white/20 hover:bg-gray-900/40 transition-all backdrop-blur-md"
-          >
-            Let's Connect
-          </a>
+            <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+              Building intelligent full-stack systems and high-precision deep learning architectures. Specializing in the MERN/Next.js stack and predictive model design.
+            </p>
+
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <a href="#projects" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.2)] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all hover:-translate-y-0.5">
+                View My Work
+              </a>
+              <a href="#contact" className="px-8 py-4 bg-white/5 text-gray-300 font-bold rounded-xl border border-white/10 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md">
+                Let's Talk
+              </a>
+            </div>
+          </motion.div>
         </div>
+
+        {/* RIGHT COLUMN: Profile Frame Container */}
+        <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px] rounded-[3rem] p-1 border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-2xl shadow-2xl overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-600/10 z-0 opacity-40" />
+
+            <div className="relative w-full h-full rounded-[2.8rem] overflow-hidden bg-gray-950 flex items-center justify-center">
+              
+              <AnimatePresence mode="wait">
+                {isLoading ? (
+                  /* 1. Glassmorphic skeleton pulse spinner while database responds */
+                  <motion.div
+                    key="skeleton"
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 w-full h-full bg-slate-900/50 animate-pulse flex items-center justify-center"
+                  >
+                    <div className="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin" />
+                  </motion.div>
+                ) : (
+                  /* 2. Dynamic DB avatar profile layer fades in clean */
+                  <motion.img
+                    key="avatar"
+                    src={avatarUrl} 
+                    alt="Naveen Sharma Portrait"
+                    initial={{ opacity: 0 }}
+                    animate={{ 
+                      opacity: 1,
+                      scale: isCoderMode ? 1.08 : 1,
+                    }}
+                    transition={{ 
+                      opacity: { duration: 0.5 },
+                      scale: { duration: 1.5, ease: "easeInOut" }
+                    }}
+                    className="absolute inset-0 w-full h-full object-cover z-10"
+                  />
+                )}
+              </AnimatePresence>
+
+              <motion.div animate={{ opacity: isCoderMode ? 0.25 : 0 }} className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-400/20 to-transparent pointer-events-none z-30" />
+              <motion.div animate={{ opacity: isCoderMode ? 0.2 : 0 }} className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-blue-500/20 to-transparent pointer-events-none z-30" />
+            </div>
+
+            <div className="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-cyan-400/30 pointer-events-none z-40" />
+            <div className="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-cyan-400/30 pointer-events-none z-40" />
+            <div className="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-cyan-400/30 pointer-events-none z-40" />
+            <div className="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-cyan-400/30 pointer-events-none z-40" />
+          </motion.div>
+        </div>
+
       </div>
     </section>
   )
