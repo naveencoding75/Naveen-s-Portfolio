@@ -39,7 +39,7 @@ export const metadata = {
   },
   verification: {
     // Keeps your Google Webmasters Search Console verification intact
-    google: '', 
+    google: '0E-2wUdvi3JU_n-NUv4qLZlNmueXCmNM75WYjAD3AtE', 
   },
   icons: {
     icon: [
