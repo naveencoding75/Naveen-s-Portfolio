@@ -23,11 +23,11 @@ export default function About() {
         </div>
 
         {/* The Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="md:col-span-2 md:row-span-2 backdrop-blur-2xl bg-gray-900/40 border border-white/20 rounded-3xl p-8 flex flex-col justify-center hover:bg-white/20 transition-colors shadow-2xl"
+            className="md:col-span-2 md:row-span-2 backdrop-blur-2xl bg-gray-900/40 border border-white/20 rounded-3xl p-10 flex flex-col justify-center hover:bg-white/20 transition-colors shadow-2xl"
           >
             <h3 className="text-2xl font-bold text-white mb-4">Who I Am</h3>
             <p className="text-gray-200 leading-relaxed text-lg">
