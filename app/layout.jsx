@@ -65,7 +65,7 @@ export const metadata = {
     siteName: 'Naveen Sharma Portfolio',
     images: [
       {
-        url: '/my_photo.png', // Uses your avatar photo for link preview thumbnails
+        url: '/twitter.jpg',
         width: 1200,
         height: 630,
         alt: 'Naveen Sharma Developer Profile',
@@ -78,7 +78,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Naveen Sharma | Full-Stack Developer & Data Scientist',
     description: 'Computer Science (Data Science) student at Kazi Nazrul University crafting high-performance full-stack web and machine learning systems.',
-    images: ['/my_photo.png'],
+    images: ['/twitter.jpg'],
   },
 }
 
