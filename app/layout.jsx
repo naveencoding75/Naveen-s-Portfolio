@@ -42,22 +42,15 @@ export const metadata = {
     google: '0E-2wUdvi3JU_n-NUv4qLZlNmueXCmNM75WYjAD3AtE', 
   },
   icons: {
-    icon: [
-      {
-        url: '/icon.svg',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon.svg',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/icon.svg',
-  },
+  icon: [
+    {
+      url: '/icon.svg',
+      type: 'image/svg+xml',
+    },
+  ],
+  shortcut: '/icon.svg',
+  apple: '/icon.svg',
+},
   openGraph: {
     title: 'Naveen Sharma | Full-Stack Developer & Data Scientist',
     description: 'Computer Science (Data Science) student at Kazi Nazrul University crafting high-performance full-stack web and machine learning systems.',
