@@ -44,11 +44,11 @@ export const metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: '/icon.svg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: '/icon.svg',
         media: '(prefers-color-scheme: dark)',
       },
       {
@@ -56,7 +56,7 @@ export const metadata = {
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: '/icon.svg',
   },
   openGraph: {
     title: 'Naveen Sharma | Full-Stack Developer & Data Scientist',
