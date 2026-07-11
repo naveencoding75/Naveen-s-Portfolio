@@ -31,7 +31,7 @@ export default function About() {
           >
             <h3 className="text-2xl font-bold text-white mb-4">Who I Am</h3>
             <p className="text-gray-200 leading-relaxed text-lg">
-              I'm a 3rd-year B.Tech Computer Science student specializing in Data Science at Kazi Nazrul University. I don't just write code; I build systems. My focus is on the intersection of robust full-stack development (Next.js, Node.js) and machine learning applications.
+              I'm a Final-year B.Tech Computer Science student specializing in Data Science at Kazi Nazrul University. I don't just write code; I build systems. My focus is on the intersection of robust full-stack development (Next.js, Node.js) and machine learning applications.
             </p>
           </motion.div>
 
