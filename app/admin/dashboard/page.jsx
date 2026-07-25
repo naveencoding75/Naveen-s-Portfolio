@@ -134,13 +134,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen p-10 bg-gray-950 text-white flex flex-col gap-10 font-sans">
+    <div className="min-h-screen p-10 bg-black text-white flex flex-col gap-10 font-sans">
       <Toaster position="bottom-right" toastOptions={{ style: { background: '#1f2937', color: '#fff', border: '1px solid #374151' } }} />
       
       {/* Header & Logout */}
       <div className="flex justify-between items-center max-w-2xl mx-auto w-full">
         <h1 className="text-3xl font-bold flex items-center gap-4">
-          <span className="h-px w-8 bg-gradient-to-r from-blue-400 to-cyan-400" />
           Admin Dashboard
         </h1>
         <button onClick={handleLogout} className="bg-red-500/10 text-red-400 border border-red-500/20 px-4 py-2 rounded hover:bg-red-500/20 transition-colors">
@@ -149,13 +148,13 @@ export default function Dashboard() {
       </div>
 
       {/* 1. Add / Edit Project Form */}
-      <section className={`p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg border transition-colors duration-300 ${editingProject ? 'bg-blue-900/10 border-blue-500/30' : 'bg-gray-900 border-white/10'}`}>
+      <section className={`p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg border transition-colors duration-300 ${editingProject ? 'bg-black border-blue-500/30' : 'bg-black border-white/10'}`}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-cyan-400">
+          <h2 className="text-xl font-semibold text-slate-400">
             {editingProject ? '✏️ Edit Project' : '1. Add New Project'}
           </h2>
           {editingProject && (
-            <button type="button" onClick={cancelEdit} className="text-sm text-gray-400 hover:text-white transition-colors">
+            <button type="button" onClick={cancelEdit} className="text-sm text-slate-400 hover:text-white transition-colors">
               Cancel Edit
             </button>
           )}
@@ -163,88 +162,88 @@ export default function Dashboard() {
 
         <form action={handleProjectSubmit} id="project-form" className="flex flex-col gap-6">
           <div className="space-y-4">
-            <input type="text" name="title" defaultValue={editingProject?.title || ''} placeholder="Project Title" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
-            <input type="text" name="tags" defaultValue={editingProject?.tags?.join(', ') || ''} placeholder="Tags (comma separated, e.g., React, Node.js)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
+            <input type="text" name="title" defaultValue={editingProject?.title || ''} placeholder="Project Title" className="w-full p-3 border-0 border-b bg-black text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors" required />
+            <input type="text" name="tags" defaultValue={editingProject?.tags?.join(', ') || ''} placeholder="Tags (comma separated, e.g., React, Node.js)" className="w-full p-3 bg-black text-white border-0 border-b border-gray-700 focus:outline-none focus:border-slate-400 transition-colors" required />
           </div>
 
-          <div className="p-5 rounded-lg border border-cyan-500/20 bg-cyan-500/5 space-y-4">
-            <h3 className="text-sm font-bold text-cyan-400 uppercase tracking-wider">Small Card View (Grid)</h3>
-            <textarea name="shortDescription" defaultValue={editingProject?.shortDescription || ''} placeholder="Short Tagline / Summary (1-2 sentences)" className="w-full p-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors h-20 resize-none" required />
+          <div className="p-5 rounded-lg border border-cyan-500/20 bg-black space-y-4">
+            <h3 className="text-sm font-bold text-cyan-500 uppercase tracking-wider">Small Card View (Grid)</h3>
+            <textarea name="shortDescription" defaultValue={editingProject?.shortDescription || ''} placeholder="Short Tagline / Summary (1-2 sentences)" className="w-full p-3 rounded-lg bg-gray text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors h-20 resize-none" required />
             
             <div className="flex flex-col gap-2">
               <label className="text-xs text-gray-400">Thumbnail Image (Square/Landscape)</label>
               <div className="flex flex-col sm:flex-row gap-2">
                 <input type="file" name="thumbnailFile" accept="image/*" className="text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-600 cursor-pointer w-full" />
-                <input type="text" name="thumbnailPath" defaultValue={editingProject?.thumbnail || ''} placeholder="OR Image URL" className="p-2 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 w-full" />
+                <input type="text" name="thumbnailPath" defaultValue={editingProject?.thumbnail || ''} placeholder="OR Image URL" className="p-2 border-0 border-b bg-black text-white border border-gray-700 focus:outline-none focus:border-slate-400 w-full" />
               </div>
             </div>
           </div>
 
-          <div className="p-5 rounded-lg border border-blue-500/20 bg-blue-500/5 space-y-4">
+          <div className="p-5 rounded-lg border border-blue-500/20 bg-black space-y-4">
             <h3 className="text-sm font-bold text-blue-400 uppercase tracking-wider">Expanded View (Modal)</h3>
-            <textarea name="description" defaultValue={editingProject?.description || ''} placeholder="Full Detailed Description..." className="w-full p-3 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-blue-400 transition-colors h-32 resize-none" required />
+            <textarea name="description" defaultValue={editingProject?.description || ''} placeholder="Full Detailed Description..." className="w-full p-3 rounded-lg bg-gray text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors h-32 resize-none" required />
             
             <div className="flex flex-col gap-2">
               <label className="text-xs text-gray-400">Full Image / Banner</label>
               <div className="flex flex-col sm:flex-row gap-2">
                 <input type="file" name="imageFile" accept="image/*" className="text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-gray-700 file:text-white hover:file:bg-gray-600 cursor-pointer w-full" />
-                <input type="text" name="imagePath" defaultValue={editingProject?.image || ''} placeholder="OR Image URL" className="p-2 rounded-lg bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-blue-400 w-full" />
+                <input type="text" name="imagePath" defaultValue={editingProject?.image || ''} placeholder="OR Image URL" className="p-2 border-0 border-b bg-gray text-white border border-gray-700 focus:outline-none focus:border-slate-400 w-full" />
               </div>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <input type="url" name="link" defaultValue={editingProject?.link || ''} placeholder="Live URL (Optional)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" />
-            <input type="url" name="github" defaultValue={editingProject?.github || ''} placeholder="GitHub URL (Optional)" className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" />
+            <input type="url" name="link" defaultValue={editingProject?.link || ''} placeholder="Live URL (Optional)" className="w-full p-3 border-0 border-b border-t bg-gray text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors" />
+            <input type="url" name="github" defaultValue={editingProject?.github || ''} placeholder="GitHub URL (Optional)" className="w-full p-3 border-0 border-b border-t bg-gray text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors" />
           </div>
           
-          <button type="submit" className={`mt-2 text-white font-bold p-4 rounded-xl transition-all duration-300 ${editingProject ? 'bg-gradient-to-r from-blue-600 to-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]' : 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]'}`}>
+          <button type="submit" className={`mt-2 text-white font-bold p-4 rounded-lg border border-slate-600 transition-all duration-300 ${editingProject ? 'bg-gradient-to-r from-black to-black hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]' : 'bg-gradient-to-r from-black to-black rounded-lg border border-slate-600 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]'}`}>
             {editingProject ? 'Update Project' : 'Save Project'}
           </button>
         </form>
       </section>
 
       {/* NEW SECTION. Upload Profile Photo Form */}
-      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">2. Update Display Avatar / Profile Photo</h2>
+      <section className="bg-black border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-slate-400">2. Update Display Avatar / Profile Photo</h2>
         <form action={handleProfilePhotoSubmit} id="profile-photo-form" className="flex flex-col gap-4">
-          <input type="file" name="profileFile" accept="image/*" className="p-3 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20" required />
-          <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold p-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+          <input type="file" name="profileFile" accept="image/*" className="p-3 rounded-lg bg-gray text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-slate-400 hover:file:bg-cyan-500/20" required />
+          <button type="submit" className="bg-gradient-to-r from-black to-black text-white font-bold p-3 rounded-lg border border-slate-600 hover:shadow-lg hover:shadow-slate- transition-all duration-300">
             Upload Avatar
           </button>
         </form>
       </section>
 
       {/* 3. Upload Resume Form */}
-      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">3. Upload Resume (PDF)</h2>
+      <section className="bg-black border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-slate-400">3. Upload Resume (PDF)</h2>
         <form action={handleResumeSubmit} id="resume-form" className="flex flex-col gap-4">
-          <input type="file" name="file" accept="application/pdf" className="p-3 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-cyan-400 hover:file:bg-cyan-500/20" required />
-          <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold p-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+          <input type="file" name="file" accept="application/pdf" className="p-3 rounded-lg bg-gray text-gray-300 border border-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-500/10 file:text-slate-400 hover:file:bg-cyan-500/20" required />
+          <button type="submit" className="bg-gradient-to-r from-black to-black text-white font-bold p-3 rounded-lg border border-slate-600 hover:shadow-lg hover:shadow-slate-600 transition-all duration-300">
             Upload PDF
           </button>
         </form>
       </section>
 
       {/* 4. Add Skill Form */}
-      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">4. Manage Skills</h2>
+      <section className="bg-black border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-slate-400">4. Manage Skills</h2>
         <form action={handleSkillSubmit} id="skill-form" className="flex flex-col gap-4">
-          <input type="text" name="name" placeholder="Skill Name (e.g., Node.js)" className="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required />
-          <select name="category" className="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400 transition-colors" required>
+          <input type="text" name="name" placeholder="Skill Name (e.g., Node.js)" className="p-3 border-0 border-b bg-gray text-white border border-slate-600 focus:outline-none focus:border-slate-400 transition-colors" required />
+          <select name="category" className="p-3 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:border-slate-400 transition-colors" required>
             <option value="Languages & Databases">Languages & Databases</option>
             <option value="Libraries & Frameworks">Libraries & Frameworks</option>
             <option value="Tools & Analytics">Tools & Analytics</option>
             <option value="Specializations">Specializations</option>
           </select>
-          <button type="submit" className="mt-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold p-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300">
+          <button type="submit" className="mt-4 bg-gradient-to-r from-black to-black text-white font-bold p-3 rounded-lg border border-slate-600 hover:shadow-lg hover:shadow-slate-600 transition-all duration-300">
             Save Skill
           </button>
         </form>
 
         <div className="mt-6 flex flex-wrap gap-3">
           {skills.map(skill => (
-            <div key={skill._id} className="flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full text-sm">
+            <div key={skill._id} className="flex items-center gap-2 bg-gray border border-gray-700 px-3 py-1 rounded-full text-sm">
               <span className="text-cyan-300">[{skill.category}]</span> 
               <span className="text-white">{skill.name}</span>
               <button onClick={() => handleDeleteSkill(skill._id)} className="ml-2 text-red-400 hover:text-red-300 font-bold">
@@ -256,8 +255,8 @@ export default function Dashboard() {
       </section>
 
       {/* 5. Manage Projects */}
-      <section className="bg-gray-900 border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
-        <h2 className="text-xl font-semibold mb-6 text-cyan-400">5. Manage Projects (Drag to Reorder)</h2>
+      <section className="bg-black border border-white/10 p-8 rounded-xl max-w-2xl mx-auto w-full shadow-lg">
+        <h2 className="text-xl font-semibold mb-6 text-slate-400">5. Manage Projects (Drag to Reorder)</h2>
         {projects.length === 0 ? (
           <p className="text-gray-400">No projects found in database.</p>
         ) : (

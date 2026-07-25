@@ -38,11 +38,11 @@ export default function Navigation() {
           
           {/* Logo Section */}
           <a href="#home" className="group flex items-center gap-2 text-xl font-bold text-white tracking-tighter">
-            <span className="text-cyan-400 group-hover:text-cyan-300 transition-colors">&lt;</span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-cyan-400 group-hover:to-blue-500 transition-all duration-300">
+            <span className="text-black-400 group-hover:text-black-300 transition-colors">&lt;</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-black-400 group-hover:to-blue-500 transition-all duration-300">
               Portfolio
             </span>
-            <span className="text-cyan-400 group-hover:text-cyan-300 transition-colors">/&gt;</span>
+            <span className="text-black-400 group-hover:text-black-300 transition-colors">/&gt;</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -51,11 +51,11 @@ export default function Navigation() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors relative group"
+                className="text-sm font-medium text-gray-300 hover:text-black-400 transition-colors relative group"
               >
                 {link.name}
                 {/* Underline hover effect */}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-black-400 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </a>
             ))}
           </nav>
@@ -88,7 +88,7 @@ export default function Navigation() {
               key={link.name}
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)} // Close menu on click
-              className="text-base font-medium text-gray-300 hover:text-cyan-400 transition-colors w-full text-center py-2"
+              className="text-base font-medium text-gray-300 hover:text-black-400 transition-colors w-full text-center py-2"
             >
               {link.name}
             </a>

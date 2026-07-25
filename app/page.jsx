@@ -40,25 +40,25 @@ export default function Home() {
 
   return (
     // Added selection color so when users highlight text, it matches your theme
-    <div className="relative bg-gray-950 text-gray-100 min-h-screen selection:bg-cyan-500/30 overflow-hidden font-sans">
+    <div className="relative bg-black text-gray-100 min-h-screen overflow-hidden font-sans">
       
       {/* Scroll Progress Bar */}
       <div
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 z-50 transition-all duration-75"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-white to-white z-50 transition-all duration-75"
         style={{ width: `${scrollProgress * 100}%` }}
       />
 
       {/* Static Tech/Data Grid Background */}
-      <div className="fixed inset-0 -z-10 h-full w-full bg-gray-950 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
+      <div className="fixed inset-0 -z-10 h-full w-full bg-black bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]">
         {/* Central ambient glow to prevent the background from feeling too flat */}
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[500px] w-[500px] rounded-full bg-blue-500 opacity-20 blur-[120px]"></div>
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[500px] w-[500px] rounded-full bg-black opacity-20 blur-[120px]"></div>
       </div>
 
       {/* Interactive Mouse Spotlight (Masking the grid) */}
       <div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(34, 211, 238, 0.04), transparent 40%)`,
+          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 0, 0, 0), transparent 40%)`,
         }}
       />
 
