@@ -97,7 +97,7 @@ export default function PrivacyPolicy() {
               <li>Withdraw consent for data processing at any time</li>
             </ul>
             <p className="mt-4">
-              To exercise these rights, please contact me at naveenthor27@gmail.com
+              To exercise these rights, please contact me at naveensharmathor@gmail.com
             </p>
           </section>
 
@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-white mb-4">Contact Me</h2>
             <p>If you have any questions about this Privacy Policy or how I handle your information, please feel free to contact me:</p>
             <div className="mt-4 space-y-2 text-gray-400">
-              <p><strong>Email:</strong> naveenthor27@gmail.com</p>
+              <p><strong>Email:</strong> naveensharmathor@gmail.com</p>
               <p><strong>Phone:</strong> +91-8084026171</p>
             </div>
           </section>

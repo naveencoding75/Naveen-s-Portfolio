@@ -113,7 +113,7 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-bold text-white mb-4">Contact Information</h2>
             <p>If you have any questions about these Terms of Service, please contact me at:</p>
             <div className="mt-4 space-y-2 text-gray-400">
-              <p><strong>Email:</strong> naveenthor27@gmail.com</p>
+              <p><strong>Email:</strong> naveensharmathor@gmail.com</p>
               <p><strong>Phone:</strong> +91-8084026171</p>
               <p><strong>GitHub:</strong> github.com/naveencoding75/</p>
               <p><strong>LinkedIn:</strong> linkedin.com/in/naveen-sharma-a34365293</p>
