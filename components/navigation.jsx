@@ -18,7 +18,7 @@ export default function Navigation() {
   }, [])
 
   const navLinks = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "#hero" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
     { name: "Skills", href: "#skills" },
@@ -37,7 +37,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center">
           
           {/* Logo Section */}
-          <a href="#home" className="group flex items-center gap-2 text-xl font-bold text-white tracking-tighter">
+          <a href="#hero" className="group flex items-center gap-2 text-xl font-bold text-white tracking-tighter">
             <span className="text-black-400 group-hover:text-black-300 transition-colors">&lt;</span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-black-400 group-hover:to-blue-500 transition-all duration-300">
               Portfolio
